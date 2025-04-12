@@ -18,7 +18,7 @@ st.markdown("---")
 # -- Group Info Box --
 st.markdown("""
 <div style='padding:15px; border:2px solid #dee2e6; border-radius:10px; background-color:#f8f9fa'>
-    <h4>👨‍💻 Project by Group 23 - PGDDE (IIT Jodhpur)</h4>
+    <h4>👨‍💻 Project by Group 23 - MTech (IIT Jodhpur)</h4>
     <ul>
         <li><b>Bindesh Chauhan</b> (M24DE2004)</li>
         <li><b>Gaurav Ranjan</b> (M24DE2006)</li>
