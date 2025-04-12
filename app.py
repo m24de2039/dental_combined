@@ -47,7 +47,7 @@ if uploaded_file:
 
     with col2:
         if task == "🧠 Dental Disease Classification":
-            clf_model = load_clf_model("models/iitj_dental_cnn.pth")
+            clf_model = load_clf_model("iitj_dental_cnn.pth")
             with st.spinner("⏳ Predicting..."):
                 prediction = predict_category(clf_model, image)
             st.markdown(f"""
@@ -57,7 +57,7 @@ if uploaded_file:
             """, unsafe_allow_html=True)
 
         elif task == "🧬 Dental Image Segmentation":
-            seg_model = load_seg_model("models/best_model.pth")
+            seg_model = load_seg_model("best_model.pth")
             with st.spinner("⏳ Segmenting..."):
                 mask = predict_mask(seg_model, image)
             st.subheader("🧠 Predicted Mask")
