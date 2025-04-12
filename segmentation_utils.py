@@ -1,22 +1,25 @@
+import os
+import re
 import torch
 import torch.nn as nn
+import requests
 import torchvision.transforms as transforms
 from PIL import Image
 
-# Define U-Net architecture matching your training notebook
+# ✅ U-Net architecture
 class UNet(nn.Module):
-    def __init__(self):
+    def __init__(self, in_channels=3, out_channels=3):
         super(UNet, self).__init__()
 
-        def conv_block(in_channels, out_channels):
+        def conv_block(in_c, out_c):
             return nn.Sequential(
-                nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
+                nn.Conv2d(in_c, out_c, kernel_size=3, padding=1),
                 nn.ReLU(inplace=True),
-                nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
+                nn.Conv2d(out_c, out_c, kernel_size=3, padding=1),
                 nn.ReLU(inplace=True),
             )
 
-        self.encoder1 = conv_block(3, 64)
+        self.encoder1 = conv_block(in_channels, 64)
         self.pool1 = nn.MaxPool2d(2)
         self.encoder2 = conv_block(64, 128)
         self.pool2 = nn.MaxPool2d(2)
@@ -39,7 +42,7 @@ class UNet(nn.Module):
         self.upconv1 = nn.ConvTranspose2d(128, 64, kernel_size=2, stride=2)
         self.decoder1 = conv_block(128, 64)
 
-        self.output_layer = nn.Conv2d(64, 3, kernel_size=1)  # 1 for binary
+        self.output_layer = nn.Conv2d(64, out_channels, kernel_size=1)
 
     def forward(self, x):
         enc1 = self.encoder1(x)
@@ -67,9 +70,44 @@ class UNet(nn.Module):
         return torch.sigmoid(self.output_layer(dec1))
 
 
-def load_model(path, device='cpu'):
-    model = UNet().to(device)
-    model.load_state_dict(torch.load(path, map_location=torch.device(device)))
+# ✅ Safely download large DropBox files
+def download_file_from_url(url, destination):
+    import requests
+
+    if os.path.exists(destination):
+        with open(destination, 'rb') as f:
+            if f.read(1) == b'<':
+                print("Corrupted file detected. Re-downloading...")
+                os.remove(destination)
+
+    if os.path.exists(destination):
+        return  # Already downloaded correctly
+
+    print(f"Downloading model from {url} ...")
+    response = requests.get(url, stream=True)
+    if response.status_code != 200:
+        raise RuntimeError(f"Failed to download model: {response.status_code}")
+
+    with open(destination, 'wb') as f:
+        for chunk in response.iter_content(32768):
+            if chunk:
+                f.write(chunk)
+
+    print("✅ Download complete.")
+
+
+# ✅ Load model and verify
+def load_model(path='best_model.pth', url=None):
+    if url:
+        download_file_from_url(url, path)
+
+    # Safety: Check for HTML content accidentally saved
+    with open(path, 'rb') as f:
+        if f.read(1) == b'<':
+            raise RuntimeError(f"❌ Model file at {path} is HTML, not a PyTorch model.")
+
+    model = UNet(in_channels=3, out_channels=3)
+    model.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
     model.eval()
     return model
 
@@ -86,7 +124,5 @@ def predict_mask(model, image):
     input_tensor = preprocess_image(image)
     with torch.no_grad():
         output = model(input_tensor)
-        # prediction = output.squeeze().cpu().numpy()
         prediction = torch.argmax(output.squeeze(), dim=0).cpu().numpy()
-
     return prediction

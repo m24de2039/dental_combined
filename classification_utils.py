@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from torchvision import transforms
 
+
 # Your trained model architecture
 class DentalModel(nn.Module):
     def __init__(self, input_shape: int, hidden_units: int, output_shape: int):
@@ -31,11 +32,13 @@ class DentalModel(nn.Module):
         x = self.conv_layer2(x)
         return self.classifier(x)
 
+
 def load_model(model_path):
     model = DentalModel(input_shape=3, hidden_units=7, output_shape=7)
     model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
     model.eval()
     return model
+
 
 def predict_category(model, image):
     transform = transforms.Compose([

@@ -57,7 +57,12 @@ if uploaded_file:
             """, unsafe_allow_html=True)
 
         elif task == "🧬 Dental Image Segmentation":
-            seg_model = load_seg_model("best_model.pth")
+            # seg_model = load_seg_model("best_model.pth")
+            seg_model = load_seg_model(
+                            path="best_model.pth",
+                            url="https://www.dropbox.com/scl/fi/u55c3agv0xt0wfqfl75gk/best_model.pth?rlkey=n73ivfib3d2t3ecngr8b4vryo&st=5od0f7bq&dl=1"
+                        )
+
             with st.spinner("⏳ Segmenting..."):
                 mask = predict_mask(seg_model, image)
             st.subheader("🧠 Predicted Mask")
@@ -74,4 +79,4 @@ else:
 
 # -- Footer --
 st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center;'>© 2025 Group 23 | PGDDE - IIT Jodhpur</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;'>© 2025 Group 23 | MTech - IIT Jodhpur</p>", unsafe_allow_html=True)
