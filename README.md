@@ -9,7 +9,8 @@ To automate the classification of dental diseases from radiographic images, we d
 Upload a dental image to predict the type of dental condition using a trained PyTorch CNN model.
 
 # Output
-![Alt text](images/imageclass.jpeg)
+![Alt text](Images/imageclass.jpeg)
+
 
 # Dental Image Segmentation Approach and Techniques
 To achieve accurate segmentation of dental structures and lesions from radiographic images, we implemented a deep learning-based semantic segmentation pipeline using a custom U-Net architecture. This encoder-decoder model is well-suited for pixel-wise classification and medical imaging tasks.
