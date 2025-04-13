@@ -24,6 +24,10 @@ Upload a dental image to predict the type of dental condition using a trained Py
 # Deployment Link
 https://dentalaisuite.streamlit.app/
 
+# Website Images
+![Image Segmentation](Images/hosted.jpeg)
+![Image Segmentation](Images/hosted2.jpeg)
+
 ## Setup (Local)
 ```bash
 pip install -r requirements.txt
