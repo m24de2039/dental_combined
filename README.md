@@ -21,6 +21,9 @@ Upload a dental image to predict the type of dental condition using a trained Py
 # Output - Image Segmentation
 ![Image Segmentation](Images/imageseg1.jpeg)
 
+# Deployment Link
+https://dentalaisuite.streamlit.app/
+
 ## Setup (Local)
 ```bash
 pip install -r requirements.txt
