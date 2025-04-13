@@ -9,7 +9,7 @@ To automate the classification of dental diseases from radiographic images, we d
 Upload a dental image to predict the type of dental condition using a trained PyTorch CNN model.
 
 # Output
-![Alt text](Images/imageclass.jpeg)
+![Disease Classification](Images/imageclass.jpeg)
 
 
 # Dental Image Segmentation Approach and Techniques
@@ -19,8 +19,8 @@ To achieve accurate segmentation of dental structures and lesions from radiograp
 Upload a dental image to predict the type of dental condition using a trained PyTorch CNN model.
 
 # Output
-![Alt text](Images/imageseg1.jpeg)
-![Alt text](Images/imageseg2.jpeg)
+![Image Segmentation](Images/imageseg1.jpeg)
+![Mask Image Segmentation](Images/imageseg2.jpeg)
 
 ## Setup (Local)
 
