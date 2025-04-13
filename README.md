@@ -19,8 +19,8 @@ To achieve accurate segmentation of dental structures and lesions from radiograp
 Upload a dental image to predict the type of dental condition using a trained PyTorch CNN model.
 
 # Output
-![Alt text](images/imageseg1.jpeg)
-![Alt text](images/imageseg2.jpeg)
+![Alt text](Images/imageseg1.jpeg)
+![Alt text](Images/imageseg2.jpeg)
 
 ## Setup (Local)
 
